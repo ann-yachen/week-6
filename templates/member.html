@@ -28,7 +28,7 @@
             <div class="messages">
                 <!-- To show messages -->
                 {% for content in messages %}
-                <div><span class="name">{{ content[2] }}:</span> {{ content[1] }}</div>
+                <div><span class="name">{{ content["name"] }}:</span> {{ content["content"] }}</div>
                 {% endfor %}
             </div>
         </div>

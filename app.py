@@ -6,9 +6,9 @@ cnx = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
     password = '12345678',
-    database = 'website'
+    database = 'website',
 )
-cursor = cnx.cursor()
+cursor = cnx.cursor(dictionary=True) # Set cursor which return dictionary, default is tuple
 
 # Create Application object
 # "public" folder and "/" path for static files
@@ -50,13 +50,13 @@ def signin():
     password = request.form.get("password")
     # Check if member exists using MySQL
     cursor.execute("SELECT * FROM member WHERE username=%s AND password=%s", (username, password,))
-    member = cursor.fetchone() # return a tuple (id, name, username, password)
+    member = cursor.fetchone() # return a dict {"id", "name", "username", "password"}
     # If member exists in table "member" in database
     if member:
         # Create session
-        session["id"] = member[0] # id
-        session["name"] = member[1] # name
-        session["username"] = member[2] # username
+        session["id"] = member["id"]
+        session["name"] = member["name"]
+        session["username"] = member["username"]
         return redirect("/member")
     else:
         # Member doesn't exist or incorrect username/password, redirect to error page
