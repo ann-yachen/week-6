@@ -59,7 +59,7 @@ CREATE TABLE `message` (
   PRIMARY KEY (`id`),
   KEY `member_id` (`member_id`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (1,1,'test',0,'2022-10-17 22:20:31'),(2,2,'Hello!',0,'2022-10-17 22:21:31'),(5,2,'Is anyone here?',0,'2022-10-18 20:57:52'),(6,3,'Hi, i\'m here!',0,'2022-10-18 20:59:25'),(7,5,'Hello.',0,'2022-10-18 21:00:16'),(8,4,'I\'m here, too.',0,'2022-10-18 21:02:09'),(9,1,'test test',0,'2022-10-18 21:02:53');
+INSERT INTO `message` VALUES (1,1,'test',0,'2022-10-17 22:20:31'),(2,2,'Hello!',0,'2022-10-17 22:21:31'),(5,2,'Is anyone here?',0,'2022-10-18 20:57:52'),(6,3,'Hi, i\'m here!',0,'2022-10-18 20:59:25'),(7,5,'Hello.',0,'2022-10-18 21:00:16'),(8,4,'I\'m here, too.',0,'2022-10-18 21:02:09'),(9,1,'test test',0,'2022-10-18 21:02:53'),(12,2,'This is test from Ann!',0,'2022-10-25 20:25:21'),(13,3,'Bob is testing.',0,'2022-10-25 20:28:26'),(14,2,'omg it\'s awesome!',0,'2022-10-25 20:46:51'),(15,5,'You really did a great job:)',0,'2022-10-25 20:48:11'),(16,6,'Nice to meet you, Ann.',0,'2022-10-25 20:54:07');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-25  1:15:09
+-- Dump completed on 2022-10-25 21:03:04

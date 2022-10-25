@@ -54,7 +54,6 @@ def signin():
     # If member exists in table "member" in database
     if member:
         # Create session
-        session["signedin"] = True
         session["id"] = member[0] # id
         session["name"] = member[1] # name
         session["username"] = member[2] # username
@@ -68,20 +67,22 @@ def signin():
 @app.route("/signout")
 def signout():
     # Remove session data, sign out
-    session.pop("signedin", None)
-    session.pop("id", None)
-    session.pop("username", None)
-    session.pop("name", None)
+    session.clear()
     return redirect("/")
 
+# Handle "/member" for member page
 @app.route("/member")
 def member():
     # Check if user is signedin
-    if "signedin" in session:
-        return render_template("member.html", name = session["name"]) # show name in member page
+    if "username" in session:
+        # Get message content using SQL (for Request-5)
+        cursor.execute("SELECT member_id, content, name FROM message INNER JOIN member ON message.member_id=member.id")
+        messages = cursor.fetchall()
+        return render_template("member.html", name = session["name"], messages = messages) # show name and messages in member page
     else:
         return redirect("/")
 
+# Handle "/error" for inproper operation 
 @app.route("/error")
 def error():
     # Get query string of message
@@ -89,4 +90,16 @@ def error():
     # Show message in error page
     return render_template("error.html", message = message)
 
-app.run(port = 3000)
+# Request-5
+# Handle "/message" for message from member
+@app.route("/message", methods = ["POST"])
+def message():
+    # Get message content from form by POST
+    content = request.form.get("content")
+    # Create message record in "message" in database 
+    cursor.execute("INSERT INTO message(member_id, content) VALUES(%s, %s)", (session["id"], content)) # Get id from session as member_id
+    cnx.commit()
+    return redirect("/member")
+
+if __name__ == "__main__":
+    app.run(port = 3000)
